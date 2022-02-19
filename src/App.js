@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import alanBtn from '@alan-ai/alan-sdk-web';
 import wordsToNumbers from 'words-to-numbers';
 import NewsCards from './Components/NewsCards/NewsCards';
@@ -10,7 +10,7 @@ const App = () => {
   const classes = useStyles();
   const [newsArticles, setNewsArticles] = useState([]);
   const [activeArticle, setActiveArticle] = useState(-1);
-  useEffect(() => {
+  React.useEffect(() => {
     alanBtn({
       key: alanKey,
       onCommand: ({ command, articles, number }) => {
