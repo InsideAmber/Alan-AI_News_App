@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from "react";
-import alanBtn from "@alan-ai/alan-sdk-web";
-import wordsToNumbers from "words-to-numbers";
-import NewsCards from "./Components/NewsCards/NewsCards";
-import useStyles from "./styles";
+import React, { useEffect, useState } from 'react';
+import alanBtn from '@alan-ai/alan-sdk-web';
+import wordsToNumbers from 'words-to-numbers';
+import NewsCards from './Components/NewsCards/NewsCards';
+import useStyles from './styles';
 // 031bd775f27c4a1f8acb2e057980293f
-const alanKey =
-  "3faa236f8291c2d988269291c5825fa02e956eca572e1d8b807a3e2338fdd0dc/stage";
+const alanKey = `${process.env.REACT_APP_ALAN_KEY}/stage`;
 
 const App = () => {
   const classes = useStyles();
@@ -15,22 +14,22 @@ const App = () => {
     alanBtn({
       key: alanKey,
       onCommand: ({ command, articles, number }) => {
-        if (command === "newHeadlines") {
+        if (command === 'newHeadlines') {
           setNewsArticles(articles);
           setActiveArticle(-1);
-        } else if (command === "highlight") {
+        } else if (command === 'highlight') {
           setActiveArticle((prevActiveArticle) => prevActiveArticle + 1);
-        } else if (command === "open") {
+        } else if (command === 'open') {
           const parsedNumber =
             number.length > 2
               ? wordsToNumbers(number, { fuzzy: true })
               : number;
           const article = articles[parsedNumber - 1];
           if (parsedNumber > 20) {
-            alanBtn().playText("Please try that again");
+            alanBtn().playText('Please try that again');
           } else if (article) {
-            window.open(article.url, "_blank");
-            alanBtn().playText("Opening...");
+            window.open(article.url, '_blank');
+            alanBtn().playText('Opening...');
           }
         }
       },
@@ -41,9 +40,9 @@ const App = () => {
     <div>
       <div className={classes.logoContainer}>
         <img
-          src="https://voicebot.ai/wp-content/uploads/2019/10/alan.jpg"
+          src='https://voicebot.ai/wp-content/uploads/2019/10/alan.jpg'
           className={classes.alanLogo}
-          alt="alan logo"
+          alt='alan logo'
         />
       </div>
       <NewsCards articles={newsArticles} activeArticle={activeArticle} />
